@@ -4,6 +4,15 @@
 
 A simple benchmark that imports a simple class defined in a CJS file and an ESM module, instantiates it and calls a method on the class.
 
+## Node 14
+
+```console
+% node index.js
+esm x 106,756,363 ops/sec ±0.15% (93 runs sampled)
+cjs x 993,925,878 ops/sec ±0.17% (93 runs sampled)
+Fastest is cjs
+```
+
 ## Node 16
 
 ```console
