@@ -12,7 +12,7 @@ import { ESMClass } from './esm.js'
 const CJSClass = cjs.CJSClass
 
 new Benchmark.Suite()
-  .add('es6', () => {
+  .add('esm', () => {
     const obj = new ESMClass()
     obj.method()
   })
