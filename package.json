@@ -5,11 +5,15 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js",
+    "start:browser": "playwright-test index.js --runner benchmark"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "benchmark": "^2.1.4"
+  },
+  "devDependencies": {
+    "playwright-test": "^8.1.1"
   }
 }

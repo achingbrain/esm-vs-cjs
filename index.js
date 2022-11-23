@@ -1,8 +1,8 @@
 /* eslint-disable no-console */
 
 /*
-$ node dist/src/index.js
-$ npx playwright-test dist/src/index.js --runner benchmark
+$ node index.js
+$ npx playwright-test index.js --runner benchmark
 */
 
 import Benchmark from 'benchmark'
@@ -13,21 +13,16 @@ import { ESMClass as NamedESMClass } from './esm.js'
 import DefaultCJSClass from './cjs-default.cjs'
 import DefaultESMClass from './esm-default.js'
 
-const ConstCJSClass = cjs.CJSClass
-const ConstESMClass = esm.ESMClass
+const ConstNamespaceCJSClass = cjs.CJSClass
+const ConstNamespaceESMClass = esm.ESMClass
 
 const ConstDefaultCJSClass = DefaultCJSClass
 const ConstDefaultESMClass = DefaultESMClass
 
+const ConstNamedCJSClass = NamedCJSClass
+const ConstNamedESMClass = NamedCJSClass
+
 new Benchmark.Suite()
-  .add('esm const binding', () => {
-    const obj = new ConstESMClass()
-    obj.method()
-  })
-  .add('cjs const binding', () => {
-    const obj = new ConstCJSClass()
-    obj.method()
-  })
   .add('esm named import', () => {
     const obj = new NamedESMClass()
     obj.method()
@@ -36,20 +31,44 @@ new Benchmark.Suite()
     const obj = new NamedCJSClass()
     obj.method()
   })
-  .add('esm default export', () => {
+  .add('esm default import', () => {
     const obj = new DefaultESMClass()
     obj.method()
   })
-  .add('cjs default export', () => {
+  .add('cjs default import', () => {
     const obj = new DefaultCJSClass()
     obj.method()
   })
-  .add('esm const binding of default export', () => {
-    const obj = new ConstDefaultCJSClass()
+  .add('esm namespace import', () => {
+    const obj = new esm.ESMClass()
     obj.method()
   })
-  .add('cjs const binding of default export', () => {
+  .add('cjs namespace import', () => {
+    const obj = new cjs.CJSClass()
+    obj.method()
+  })
+  .add('esm const binding of namespace import', () => {
+    const obj = new ConstNamespaceESMClass()
+    obj.method()
+  })
+  .add('cjs const binding of namespace import', () => {
+    const obj = new ConstNamespaceCJSClass()
+    obj.method()
+  })
+  .add('esm const binding of named import', () => {
+    const obj = new ConstNamedESMClass()
+    obj.method()
+  })
+  .add('cjs const binding of named import', () => {
+    const obj = new ConstNamedCJSClass()
+    obj.method()
+  })
+  .add('esm const binding of default import', () => {
     const obj = new ConstDefaultESMClass()
+    obj.method()
+  })
+  .add('cjs const binding of default import', () => {
+    const obj = new ConstDefaultCJSClass()
     obj.method()
   })
   .on('error', (err) => {
